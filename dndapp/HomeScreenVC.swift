@@ -14,89 +14,58 @@ class HomeScreenVC: UIViewController {
   let backgroundsButton = HomeScreenButton(backgroundColor: .darkGray, title: "Backgrounds", systemImageName: "book.closed.fill")
   let itemsButton = HomeScreenButton(backgroundColor: .darkGray, title: "Items", systemImageName: "latch.2.case.fill")
   let spellsButton = HomeScreenButton(backgroundColor: .darkGray, title: "Spells", systemImageName: "scroll.fill")
-  let monsterButton = HomeScreenButton(backgroundColor: .darkGray, title: "Monsters", systemImageName: "pawprint.fill")
+  let monstersButton = HomeScreenButton(backgroundColor: .darkGray, title: "Monsters", systemImageName: "pawprint.fill")
+  var stackView = UIStackView()
+  var titleLabel = UILabel()
+    
   override func viewDidLoad() {
     super.viewDidLoad()
-    configureUI()
+    configureTitleLabel()
+    configureStackView()
     
-    func configureUI() {
-      configureRacesButton()
-      configureClassesButton()
-      configureBackgroundsButton()
-      configureItemsButton()
-      configureSpellsButton()
-      configureMonsterButton()
-    }
-    
-    func configureRacesButton() {
-      view.addSubview(racesButton)
-      racesButton.translatesAutoresizingMaskIntoConstraints = false
+    func configureStackView() {
+      view.addSubview(stackView)
+      stackView.axis = .vertical
+      stackView.distribution = .fillEqually
+      stackView.spacing = 20
       
+      setStackViewConstraints()
+      stackView.addArrangedSubview(racesButton)
+      stackView.addArrangedSubview(classesButton)
+      stackView.addArrangedSubview(backgroundsButton)
+      stackView.addArrangedSubview(itemsButton)
+      stackView.addArrangedSubview(spellsButton)
+      stackView.addArrangedSubview(monstersButton)
+    }
+  
+    
+    func setStackViewConstraints() {
+      stackView.translatesAutoresizingMaskIntoConstraints = false
       NSLayoutConstraint.activate([
-        racesButton.widthAnchor.constraint(equalToConstant: 160),
-        racesButton.heightAnchor.constraint(equalToConstant: 50),
-        racesButton.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 12),
-        racesButton.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        stackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30),
+        stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 50),
+        stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50),
+        stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30)
       ])
     }
     
-    func configureClassesButton() {
-      view.addSubview(classesButton)
-      classesButton.translatesAutoresizingMaskIntoConstraints = false
+    func configureTitleLabel() {
+      view.addSubview(titleLabel)
+      titleLabel.text = "D&D 5e Companion"
+      titleLabel.font = UIFont.boldSystemFont(ofSize: 30)
+      titleLabel.textAlignment = .center
+      titleLabel.numberOfLines = 0
+      titleLabel.adjustsFontSizeToFitWidth = true
       
-      NSLayoutConstraint.activate([
-        classesButton.widthAnchor.constraint(equalToConstant: 160),
-        classesButton.heightAnchor.constraint(equalToConstant: 50),
-        classesButton.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -12),
-        classesButton.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-      ])
+      setTitleLabelConstraints()
     }
     
-    func configureBackgroundsButton() {
-      view.addSubview(backgroundsButton)
-      backgroundsButton.translatesAutoresizingMaskIntoConstraints = false
-      
+    func setTitleLabelConstraints() {
+      titleLabel.translatesAutoresizingMaskIntoConstraints = false
       NSLayoutConstraint.activate([
-        backgroundsButton.widthAnchor.constraint(equalToConstant: 160),
-        backgroundsButton.heightAnchor.constraint(equalToConstant: 50),
-        backgroundsButton.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 12),
-        backgroundsButton.topAnchor.constraint(equalTo: racesButton.bottomAnchor, constant: 16)
-      ])
-    }
-    
-    func configureItemsButton() {
-      view.addSubview(itemsButton)
-      itemsButton.translatesAutoresizingMaskIntoConstraints = false
-      
-      NSLayoutConstraint.activate([
-        itemsButton.widthAnchor.constraint(equalToConstant: 160),
-        itemsButton.heightAnchor.constraint(equalToConstant: 50),
-        itemsButton.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -12),
-        itemsButton.topAnchor.constraint(equalTo: classesButton.bottomAnchor, constant: 16)
-      ])
-    }
-    
-    func configureSpellsButton() {
-      view.addSubview(spellsButton)
-      spellsButton.translatesAutoresizingMaskIntoConstraints = false
-      
-      NSLayoutConstraint.activate([
-        spellsButton.widthAnchor.constraint(equalToConstant: 160),
-        spellsButton.heightAnchor.constraint(equalToConstant: 50),
-        spellsButton.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 12),
-        spellsButton.topAnchor.constraint(equalTo: backgroundsButton.bottomAnchor, constant: 16)
-      ])
-    }
-    
-    func configureMonsterButton() {
-      view.addSubview(monsterButton)
-      monsterButton.translatesAutoresizingMaskIntoConstraints = false
-      
-      NSLayoutConstraint.activate([
-        monsterButton.widthAnchor.constraint(equalToConstant: 160),
-        monsterButton.heightAnchor.constraint(equalToConstant: 50),
-        monsterButton.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -12),
-        monsterButton.topAnchor.constraint(equalTo: itemsButton.bottomAnchor, constant: 16)
+        titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+        titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+        titleLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
       ])
     }
     
